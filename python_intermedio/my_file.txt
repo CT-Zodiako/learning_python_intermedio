@@ -1,4 +1,5 @@
 Mi nombre es Cristian
 Mi apellido es Tovar
-24 aÃ±os
+24 años
 Y mi lenguaje preferido es Python
+me gusta la rumba
