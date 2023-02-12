@@ -1,7 +1,7 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
-app = FastAPI()
+router = APIRouter()
 
 # Entidad user
 
@@ -18,7 +18,7 @@ users_list = [User(id=1, name="Cristian", surname="Tovar", age=24),
               User(id=3, name="Paco", surname="Flaca", age=24)]
 
 
-@app.get("/usersJson")  # hecho a mano
+@router.get("/usersJson")  # hecho a mano
 async def user():
     return [
         {"name": "Cristian", "surname": "Tovar", "age": 24},
@@ -27,22 +27,22 @@ async def user():
     ]
 
 
-@app.get("/users")
+@router.get("/users")
 async def users():
     return users_list
 
 #Path
-@app.get("/user/{id}")
+@router.get("/user/{id}")
 async def user(id: int):
     return search_user(id)
 
 #Query
-@app.get("/user/")
+@router.get("/user/")
 async def user(id: int):
     return search_user(id)
 
 #post
-@app.post("/user/",status_code=201)
+@router.post("/user/",status_code=201)
 async def new_user(user: User):
     if type(search_user(user.id)) == User:
         raise HTTPException(status_code=404, detail="Ya existe")
@@ -51,7 +51,7 @@ async def new_user(user: User):
         return user
 
 #put
-@app.put("/user/")
+@router.put("/user/")
 async def user_update(user: User):
     found = False
     for index,save_user in enumerate(users_list):
@@ -64,7 +64,7 @@ async def user_update(user: User):
         return user
 
 #delete
-@app.delete("/user/{id}")
+@router.delete("/user/{id}")
 async def user_delete(id: int):
     found = False
     for index,save_user in enumerate(users_list):
