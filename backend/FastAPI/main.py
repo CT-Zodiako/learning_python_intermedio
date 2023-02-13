@@ -7,6 +7,8 @@ app = FastAPI()
 
 app.include_router(productos.router)
 app.include_router(user.router)
+
+
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/")
